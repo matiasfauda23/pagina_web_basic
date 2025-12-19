@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <title>Mi Portfolio</title>
@@ -17,7 +18,7 @@
 
 <div class="container">
 
-    <div class="mb-3 text-end">
+    <div class="mb-3 text-end" sec:authorize="isAuthenticated()">
         <a href="/nuevo" class="btn btn-success">
             + Agregar Proyecto
         </a>
@@ -40,10 +41,10 @@
                     <p class="card-text text-muted" th:text="${proyecto.descripcion}">Descripción...</p>
                 </div>
 
-                <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+                <div class="card-footer bg-white border-top-0 d-flex justify-content-between" sec:authorize="isAuthenticated()">
                     <a th:href="@{/editar/{id}(id=${proyecto.id})}" class="btn btn-warning btn-sm">Editar</a>
 
-                    <a th:href="@{/borrar/{id}(id=${proyecto.id})}" class="btn btn-danger btn-sm"
+                    <a th:href="@{/borrar/{id}(id=${proyecto.id})}" class="btn btn-danger btn-sm" sec:authorize="isAuthenticated()"
                        onclick="return confirm('¿Estás seguro de querer borrar este proyecto?');">
                         Eliminar
                     </a>
