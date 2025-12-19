@@ -18,18 +18,27 @@
                 <input type="hidden" th:field="*{id}">
                 <div class="mb-3">
                     <label>Nombre del Proyecto:</label>
-                    <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: Sistema de Ventas" required>
+                    <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: Sistema de Ventas">
+                    <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+                        Error en el nombre
+                    </div>
                 </div>
 
                 <div class="mb-3">
                     <label>Descripción:</label>
-                    <textarea th:field="*{descripcion}" class="form-control" rows="3" placeholder="Breve descripción..." required></textarea>
+                    <textarea th:field="*{descripcion}" class="form-control" rows="3" placeholder="Breve descripción..."></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">
+                        Error en la descripcion
+                    </div>
                 </div>
 
                 <div class="mb-3">
                     <label>URL de la Imagen:</label>
-                    <input type="text" th:field="*{urlImagen}" class="form-control" placeholder="https://..." required>
+                    <input type="text" th:field="*{urlImagen}" class="form-control" placeholder="https://...">
                     <small class="text-muted">Podés usar: https://placehold.co/600x400</small>
+                    <div class="text-danger" th:if="${#fields.hasErrors('urlImagen')}" th:errors="*{urlImagen}">
+                        Error en la URL
+                    </div>
                 </div>
 
                 <div class="d-grid gap-2">

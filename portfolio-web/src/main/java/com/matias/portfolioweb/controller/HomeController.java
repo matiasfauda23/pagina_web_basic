@@ -2,8 +2,10 @@ package com.matias.portfolioweb.controller;
 
 import com.matias.portfolioweb.model.Proyecto;
 import com.matias.portfolioweb.repository.ProyectoRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,12 +41,19 @@ public class HomeController {
         return "nuevo_proyecto"; // Mostramos el archivo html nuevo
     }
 
+    //Antes de guardar un proyecto tiene que verificar que se cumplan las validaciones
+    //@Valid antes de entrar a este metodo, verifica que se cumplan las condiciones
+    //BindingResult es una caja, donde si hay errores, los guarda dentro
     @PostMapping("/guardar")
-    public String guardarProyecto(@ModelAttribute Proyecto proyecto) {
-        // "proyecto" ya viene lleno con los datos del formulario
-        repository.save(proyecto); // ¡Lo guardamos en la base de datos!
+    public String guardarProyecto(@Valid @ModelAttribute Proyecto proyecto, BindingResult result, Model model) {
 
-        return "redirect:/"; // Redirigimos al inicio para ver el cambio
+        // Si hay errores en el formulario
+        if (result.hasErrors()) {
+            return "nuevo_proyecto";
+        }
+        // Si no hay errores, lo guardamos
+        repository.save(proyecto);
+        return "redirect:/";
     }
 
     @GetMapping("/borrar/{id}")
