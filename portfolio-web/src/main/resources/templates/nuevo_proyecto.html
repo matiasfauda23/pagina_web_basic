@@ -33,6 +33,20 @@
                 </div>
 
                 <div class="mb-3">
+                    <label>Categoría:</label>
+                    <input type="text" th:field="*{categoria}" class="form-control" placeholder="Ej: Tecnología, Ropa, Hogar">
+
+                    <div class="text-danger" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label>Precio ($):</label>
+                    <input type="number" step="0.01" th:field="*{precio}" class="form-control" placeholder="0.00">
+
+                    <div class="text-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
+                </div>
+
+                <div class="mb-3">
                     <label>URL de la Imagen:</label>
                     <input type="text" th:field="*{urlImagen}" class="form-control" placeholder="https://...">
                     <small class="text-muted">Podés usar: https://placehold.co/600x400</small>

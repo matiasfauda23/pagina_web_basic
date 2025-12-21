@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 //Herramientas para validaciones
 import jakarta.validation.constraints.NotBlank;
@@ -17,6 +18,7 @@ public class Proyecto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)     //Autoincrementable
     private Long id;
 
+    //Validaciones
     @NotBlank(message = "El nombre no puede estar vacio") //Quiero que esto no este vacio
     private String nombre;
 
@@ -25,4 +27,10 @@ public class Proyecto {
 
     @NotBlank(message = "Deber tener URL de imagen")
     private String urlImagen;
+
+    @NotNull(message = "El precio es obligatorio")
+    private double precio;
+
+    @NotBlank(message = "La categoria es obligatoria")
+    private String categoria;
 }

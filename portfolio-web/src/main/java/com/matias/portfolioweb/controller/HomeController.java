@@ -6,10 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,12 +20,19 @@ public class HomeController {
         this.repository = repository;
     }
     @GetMapping("/")
-    public String home(Model model){
-        //Busco todos los proyectos de la bd
-        List<Proyecto> listaDeProyectos = repository.findAll();
-
+    public String home(Model model, @RequestParam(required = false) String palabra){
+        List<Proyecto> lista;
+        if(palabra != null && !palabra.isEmpty()){
+            //Si hay palabra clave, buscamos con el metodo
+            lista =  repository.findByNombreContainingIgnoreCase(palabra);
+        }
+        else{
+            //Si no hay busqueda, traemos todo
+            lista = repository.findAll();
+        }
         //Cargamos esa lista en el "modelo"
-        model.addAttribute("misProyectos", listaDeProyectos);
+        model.addAttribute("misProyectos", lista);
+        model.addAttribute("palabra", palabra);
 
         //Retornamos el nombre del archivo
         return "index";
@@ -74,5 +78,6 @@ public class HomeController {
         // Reutilizamos la vista del formulario
         return "nuevo_proyecto";
     }
+
 }
 

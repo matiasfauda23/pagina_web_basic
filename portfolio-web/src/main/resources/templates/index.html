@@ -16,6 +16,18 @@
     </div>
 </nav>
 
+<div class="container mt-4">
+    <form class="d-flex" action="/" method="get">
+        <input class="form-control me-2" type="search" name="palabra"
+               th:value="${palabra}" placeholder="Buscar productos..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+
+    <div class="mt-2" th:if="${palabra != null}">
+        <a href="/" class="btn btn-sm btn-secondary">Limpiar filtro</a>
+    </div>
+</div>
+
 <div class="container">
 
     <div class="mb-3 text-end" sec:authorize="isAuthenticated()">
@@ -37,7 +49,12 @@
                 <img th:src="${proyecto.urlImagen}" class="card-img-top" alt="Imagen del proyecto" style="height: 200px; object-fit: cover;">
 
                 <div class="card-body">
+                    <span class="badge bg-secondary mb-2" th:text="${proyecto.categoria}">Cat</span>
+
                     <h5 class="card-title" th:text="${proyecto.nombre}">Título</h5>
+
+                    <h4 class="text-success" th:text="${'$ ' + proyecto.precio}">$0.00</h4>
+
                     <p class="card-text text-muted" th:text="${proyecto.descripcion}">Descripción...</p>
                 </div>
 
