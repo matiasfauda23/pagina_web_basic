@@ -20,19 +20,26 @@ public class HomeController {
         this.repository = repository;
     }
     @GetMapping("/")
-    public String home(Model model, @RequestParam(required = false) String palabra){
+    public String home(Model model, @RequestParam(required = false) String palabra,
+                                    @RequestParam(required = false) String categoria){
         List<Proyecto> lista;
-        if(palabra != null && !palabra.isEmpty()){
-            //Si hay palabra clave, buscamos con el metodo
-            lista =  repository.findByNombreContainingIgnoreCase(palabra);
+
+        //Logica de filtrado
+        if (palabra != null && !palabra.isEmpty()) {
+            // Caso 1: Busqueda por texto
+            lista = repository.findByNombreContainingIgnoreCase(palabra);
+        } else if (categoria != null && !categoria.isEmpty()) {
+            // Caso 2: Hay filtro por categoria
+            lista = repository.findByCategoriaIgnoreCase(categoria);
         }
         else{
-            //Si no hay busqueda, traemos todo
+            //Si no hay busqueda, traemos todito
             lista = repository.findAll();
         }
         //Cargamos esa lista en el "modelo"
         model.addAttribute("misProyectos", lista);
         model.addAttribute("palabra", palabra);
+        model.addAttribute("categoriaActiva", categoria);
 
         //Retornamos el nombre del archivo
         return "index";
