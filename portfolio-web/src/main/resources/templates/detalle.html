@@ -38,7 +38,11 @@
                     <hr>
 
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary btn-lg" type="button">Comprar ahora</button>
+                        <a th:href="'https://wa.me/5491141721042?text=Hola, estoy interesado en el producto: ' + ${proyecto.nombre} + ' que cuesta $' + ${proyecto.precio}"
+                           class="btn btn-success btn-lg"
+                           target="_blank">
+                            <i class="bi bi-whatsapp"></i> Comprar por WhatsApp
+                        </a>
                         <button class="btn btn-outline-secondary" type="button">Agregar al carrito</button>
                     </div>
                 </div>
