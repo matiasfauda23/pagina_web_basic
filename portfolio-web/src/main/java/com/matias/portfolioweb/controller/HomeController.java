@@ -85,6 +85,21 @@ public class HomeController {
         // Reutilizamos la vista del formulario
         return "nuevo_proyecto";
     }
+    // Importante: Agregá @PathVariable a los imports si no está
+    @GetMapping("/producto/{id}")
+    public String verDetalle(@PathVariable Long id, Model model) {
+
+        // Buscamos el producto por ID.
+        Proyecto proyecto = repository.findById(id).orElse(null);
+
+        // Si el usuario puso un ID que no existe lo mandamos al inicio
+        if (proyecto == null) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("proyecto", proyecto);
+        return "detalle";
+    }
 
 }
 

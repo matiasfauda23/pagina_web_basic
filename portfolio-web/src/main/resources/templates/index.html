@@ -57,7 +57,10 @@
         <div class="col" th:each="proyecto : ${misProyectos}">
             <div class="card h-100 shadow-sm">
 
-                <img th:src="${proyecto.urlImagen}" class="card-img-top" alt="Imagen del proyecto" style="height: 200px; object-fit: cover;">
+                <a th:href="@{/producto/{id}(id=${proyecto.id})}">
+                    <img th:src="${proyecto.urlImagen}" class="card-img-top" alt="Imagen del proyecto"
+                         style="height: 200px; object-fit: cover;">
+                </a>
 
                 <div class="card-body">
                     <span class="badge bg-secondary mb-2" th:text="${proyecto.categoria}">Cat</span>
