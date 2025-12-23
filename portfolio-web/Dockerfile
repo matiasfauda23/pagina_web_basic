@@ -1,10 +1,11 @@
-# 1. Usamos una imagen con Maven y Java 17 para compilar el proyecto
+# 1. Etapa de Construcción (Build)
 FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
 RUN mvn clean package -DskipTests
 
-# 2. Usamos una imagen liviana solo con Java 17 para ejecutarlo
-FROM openjdk:17-jdk-slim
+# 2. Etapa de Ejecución (Run) - ACÁ CAMBIAMOS LA IMAGEN
+# Usamos eclipse-temurin que es la recomendada actualmente
+FROM eclipse-temurin:17-jdk-alpine
 COPY --from=build /target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
