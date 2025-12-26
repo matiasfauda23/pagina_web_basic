@@ -16,13 +16,13 @@ public class SegurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        // 1. Regla publica:
-                        // Permitir entrar a "/" (inicio) y a "/css", "/js"
-                        // .permitAll() significa "Entrada libre"
-                        .requestMatchers("/", "/css/**", "/js/**", "/images/**").permitAll()
+                        // 1. Permitir ver la Home, el Login, los recursos (css/js) y las IMÁGENES
+                        .requestMatchers("/", "/home", "/index", "/login", "/css/**", "/js/**", "/images/**").permitAll()
 
-                        // 2. Regla privada
-                        // Cualquier otra URL (/nuevo, /borrar, /editar) requiere estar logueado
+                        // 2. IMPORTANTE: Permitir ver el detalle del producto (ajustá la ruta a la tuya)
+                        .requestMatchers("/producto/**").permitAll()
+
+                        // 3. Todo lo demás (como /admin/...) requiere estar logueado
                         .anyRequest().authenticated()
                 )
                 // 3. Activar login
